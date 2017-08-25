@@ -1,0 +1,29 @@
+{
+    "name": "bhirons/downblog",
+    "description": "Simple blog package using markdown",
+    "type": "library",
+    "require": {
+        "graham-campbell/markdown": "^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.3",
+        "orchestra/testbench":"~3.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Budd Hirons Jr",
+            "email": "buddhironsjr@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "bhirons\\DownBlog\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "bhirons\\DownBlog\\Test\\": "tests/"
+        }
+    }
+}
