@@ -1,0 +1,144 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Arimo|Lato|Roboto+Slab);
+
+
+dl:after {content:"";display:table;clear:both;}
+dd {
+    padding:.5em 0;
+}
+dl {
+    width:100%;
+}
+dt, dd {
+    display:inline-block;
+    width:15%;
+}
+dt {
+    text-align:right;
+    font-weight:bold;
+    clear:left;
+    float:left;
+}
+dd {
+    width:85%;
+    padding-left:1em;
+    clear:right;
+}
+dd + dd {
+    float:right;
+    clear:both;
+}
+dt:first-child {
+    padding-top:.5em;
+}
+dd + dt {
+    clear:both;
+    padding-top:.5em;
+}
+dt + dt {
+    width: 100%;
+    float: none;
+    padding: 0 70% 0 0;
+}
+dt + dt + dd {
+    margin-top: -2em;
+}
+dt + dt + dd + dt {
+    margin-top: 2em;
+}
+
+article h1 {
+    font-size: 36px;
+    font-weight: bold;
+}
+article h2 {
+    font-size: 24px;
+}
+
+article p,
+.article-content p
+{
+    font-size: 16px;
+    font-weight: 200;
+    line-height: 2;
+    color: #696969;
+}
+
+article blockquote p {
+    font-size: 22px;
+}
+
+article.full .attribution {
+    font-family: 'Roboto', serif;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+article.full .article-content,
+#discussion-target-content .article-content
+{
+    padding-top: 2em;
+}
+
+article.full,
+.article-content {
+    font-family: 'Roboto Slab', serif;
+    font-size: 14px;
+}
+
+article.featured {
+    border-bottom: 1px solid #eeeeee;
+}
+article.featured h1 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 36px;
+}
+article.featured h2 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 24px;
+}
+article.featured p {
+    font-size: 14px;
+}
+
+article.compact {
+    border-bottom: 1px solid #eeeeee;
+}
+article.compact h1 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 24px;
+}
+article.compact h2 {
+    font-size: 20px;
+}
+article.compact p {
+    font-size: 12px;
+}
+article.compact .attribution {
+    font-family: 'Roboto', serif;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.text-muted {
+    font-size: smaller;
+}
+
+footer {
+    margin: 5em 0 0 0;
+    padding: .5em 1em 2em 1em;
+    /*background: #04395e;*/
+    /*color: #c89933;*/
+    background: #efefef;
+    border-color: #d3e0e9;
+    border-top: 1px solid;
+    font-weight: 200; }
+
+footer h1 {
+    font-size: 14px; }
+
+footer p {
+    font-size: 12px; }
+
+p.copyright {
+    margin-top: 1em; }

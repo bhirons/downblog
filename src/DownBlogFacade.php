@@ -14,6 +14,6 @@ class DownBlogFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'down-blog';
+        return 'downblog';
     }
 }
