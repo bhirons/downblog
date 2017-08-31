@@ -1,11 +1,9 @@
-@extends('layouts.app')
+@extends(config('downblog.layout_parent'))
 
 @section('content')
-    <div class="container">
-        @include('partials.msg')
-
+        @include('downblog::partials.msg')
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <article class="full">
@@ -13,13 +11,11 @@
                             <h2>{{ $article->subtitle }}</h2>
                             <div class="attribution">
                                 {{ $article->author->name }}, {{ $article->published_on->toDayDateTimeString() }}
-                                {{--<span class="pull-right"><a href="{{ Forum::route('category.show', $article->discussion->category) }}">discussion</a></span>--}}
                             </div>
-                            @include('partials.content')
+                            @include('downblog::partials.content')
                         </article>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 @endsection

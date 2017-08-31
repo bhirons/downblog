@@ -33,13 +33,6 @@
         {!! $errors->first('content', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
-<div class="form-group {{ $errors->has('user_id') ? 'has-error' : ''}}">
-    {!! Form::label('user_id', 'Author', ['class' => 'col-md-2 control-label']) !!}
-    <div class="col-md-10">
-        {!! Form::select('user_id', $authors, null, ['class' => 'form-control']) !!}
-        {!! $errors->first('user_id', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
 <div class="form-group {{ $errors->has('published_on') ? 'has-error' : ''}}">
     {!! Form::label('published_on', 'Publish Date', ['class' => 'col-md-2 control-label', 'required' => 'required']) !!}
     <div class="col-md-10">

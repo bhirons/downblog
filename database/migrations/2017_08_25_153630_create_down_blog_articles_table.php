@@ -12,7 +12,7 @@ class CreateDownBlogArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('downblog_articles', function(Blueprint $table) {
+        Schema::create(config('downblog.table_name', 'downblog_articles'), function(Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('slug')->unique();

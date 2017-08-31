@@ -1,9 +1,9 @@
 <?php
 
-namespace bhirons\DownBlog\Test;
+namespace Bhirons\DownBlog\Test;
 
-use bhirons\DownBlog\DownBlogFacade;
-use bhirons\DownBlog\DownBlogServiceProvider;
+use Bhirons\DownBlog\DownBlogFacade;
+use Bhirons\DownBlog\DownBlogServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 class TestCase extends OrchestraTestCase

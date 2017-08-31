@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace Bhirons\DownBlog\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use bhirons\DownBlog\Article;
+use Bhirons\DownBlog\Article;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 //use Session;
 
-class DownBlogController
+class DownBlogController extends BaseController
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
      * Display a listing of the resource.
@@ -20,6 +23,8 @@ class DownBlogController
      */
     public function index(Request $request)
     {
+        //dd($request);
+
         $keyword = $request->get('search');
         $perPage = 15;
 
@@ -37,22 +42,18 @@ class DownBlogController
                 ->paginate($perPage);
         }
 
-        return view('downblog::admin.index', compact('post'));
+        return view('downblog::admin.index')
+            ->with('posts', $posts);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
+     **
      * @return \Illuminate\View\View
      */
     public function create()
     {
-        $authors = User::authors()->select('id', 'name')->get();
-
-        return view('downblog::admin.create')
-            ->with('authors', $authors->mapWithKeys( function($item) {
-                return [$item['id'] => $item['name']];
-            }));
+        return view('downblog::admin.create');
     }
 
     /**
@@ -69,14 +70,13 @@ class DownBlogController
             'content' => 'required|string',
             'subtitle' => 'string|nullable|max:255',
             'blurb' => 'string|nullable|max:1000',
-            'user_id' => 'required|numeric',
             'published_on' => 'required|date',
+            //'user_id' => 'required|numeric',
         ]);
         $requestData = $request->all();
 
-        //dd($requestData);
-
         $requestData['slug'] = $this->slugify($requestData['title']);
+        $requestData['user_id'] = $request->user()->id;
         $post = Article::create($requestData);
 
         //Session::flash('alert-info', 'Article '.$post->title.' added!');
@@ -93,9 +93,9 @@ class DownBlogController
      */
     public function show($slug)
     {
-        $post = Article::where('slug', '=', $slug)->firstOrFail();
+        $article = Article::where('slug', '=', $slug)->firstOrFail();
 
-        return view('downblog::admin.show', compact('post'));
+        return view('downblog::admin.show', compact('article'));
     }
 
     /**
@@ -107,26 +107,23 @@ class DownBlogController
      */
     public function edit($slug)
     {
-        $post = Article::where('slug', '=', $slug)->with('author')->firstOrFail();
-
-        $authors = User::authors()->select('id', 'name')->get();
+        $article = Article::where('slug', '=', $slug)
+            ->with('author')
+            ->firstOrFail();
 
         return view('downblog::admin.edit')
-            ->with('article', $post)
-            ->with('authors', $authors->mapWithKeys( function($item) {
-                return [$item['id'] => $item['name']];
-            }));
+            ->with('article', $article);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  string $slug
+     * @param  integer $id
      * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($slug, Request $request)
+    public function update($id, Request $request)
     {
         $this->validate($request, [
             'title' => 'required|max:255',
@@ -138,7 +135,7 @@ class DownBlogController
         ]);
         $requestData = $request->all();
 
-        $post = Article::where('slug', '=', $slug)->firstOrFail();
+        $post = Article::where('id', '=', $id)->firstOrFail();
 
         $requestData['slug'] = $this->slugify($requestData['title']);
         $post->update($requestData);
@@ -155,13 +152,13 @@ class DownBlogController
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function destroy($slug)
+    public function destroy($id)
     {
-        Article::where('slug', '=', $slug)->delete();
+        Article::where('id', '=', $id)->delete();
 
         //Session::flash('alert-info', 'Article deleted!');
 
-        return redirect('downblog::admin.index');
+        return redirect()->route('downblog.admin.index');
     }
 
     /*

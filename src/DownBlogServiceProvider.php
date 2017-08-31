@@ -1,7 +1,8 @@
 <?php
 
-namespace bhirons\DownBlog;
+namespace Bhirons\DownBlog;
 
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class DownBlogServiceProvider extends ServiceProvider
@@ -11,32 +12,30 @@ class DownBlogServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Gate $gate)
     {
+        //load the things
+        $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadViewsFrom(__DIR__.'/../assets/views', 'downblog');
+        //$this->loadTranslationsFrom(__DIR__.'/../translations', 'downblog');
+
+        //set the publishables
         $this->publishes([
             __DIR__.'/../config/downblog.php' => config_path('downblog.php'),
         ],'config');
-
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
-
-        $this->loadMigrationsFrom(__DIR__.'/../migrations');
-
-        //view('downblog::presentation.show')
-        $this->loadViewsFrom(__DIR__.'/../assets/views', 'downblog');
-
         $this->publishes([
             __DIR__.'/../assets/views' => resource_path('views/vendor/downblog'),
         ], 'views');
-
         $this->publishes([
             __DIR__.'/../assets/public' => public_path('vendor/downblog'),
         ], 'public');
-
-        //$this->loadTranslationsFrom(__DIR__.'/path/to/translations', 'downblog');
-        //
         //$this->publishes([
         //    __DIR__.'/../translations' => resource_path('lang/vendor/downblog'),
         //], 'translations');
+
+        //register the policy
+        $gate->policy(\Bhirons\DownBlog\Article::class, config('downblog.policy'));
     }
     /**
      * Register the application services.
@@ -63,12 +62,3 @@ class DownBlogServiceProvider extends ServiceProvider
         $loader->alias('Markdown', \GrahamCampbell\Markdown\Facades\Markdown::class);
     }
 }
-
-/*
- * $this->app->register('LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider');
-    /*
-     * Create aliases for the dependency.
-     *
-$loader = \Illuminate\Foundation\AliasLoader::getInstance();
-$loader->alias('AuthorizationServer', 'LucaDegasperi\OAuth2Server\Facades\AuthorizationServerFacade');
- */

@@ -1,16 +1,9 @@
-@extends('layouts.app')
-
-@section('cssaddons')
-    <link href="{{ asset('css/simplemde.min.css') }}" rel="stylesheet">
-@endsection
+@extends(config('downblog.layout_parent'))
 
 @section('content')
-    <div class="container">
         <div class="row">
-            @include('admin.sidebar')
-
-            <div class="col-md-9">
-                @include('admin.msg')
+            <div class="col-md-12">
+                @include('downblog::partials.msg')
 
                 <div class="panel panel-default">
                     <div class="panel-heading">Create New Article</div>
@@ -29,7 +22,7 @@
 
                         {!! Form::open(['url' => route('downblog.admin.store'), 'class' => 'form-horizontal', 'files' => true]) !!}
 
-                        @include ('admin.form')
+                        @include ('downblog::admin.form')
 
                         {!! Form::close() !!}
 
@@ -37,7 +30,6 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection
 
 @section('jsaddons')

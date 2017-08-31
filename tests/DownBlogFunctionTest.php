@@ -1,6 +1,6 @@
 <?php
 
-namespace bhirons\DownBlog\Test;
+namespace Bhirons\DownBlog\Test;
 
 use DownBlog;
 

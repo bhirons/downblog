@@ -1,16 +1,14 @@
-@extends('layouts.app')
+@extends(config('downblog.layout_parent'))
 
 @section('cssaddons')
     <link href="{{ asset('css/simplemde.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
-    <div class="container">
         <div class="row">
-            @include('admin.sidebar')
 
-            <div class="col-md-9">
-                @include('admin.msg')
+            <div class="col-md-12">
+                @include('downblog::partials.msg')
 
                 <div class="panel panel-default">
                     <div class="panel-heading">Editing "{{ $article->title }}" ({{ $article->id }})</div>
@@ -34,7 +32,9 @@
                             'files' => true
                         ]) !!}
 
-                        @include ('admin.articles.form', ['submitButtonText' => 'Update'])
+                        {!! Form::hidden('user_id', $article->user_id) !!}
+
+                        @include ('downblog::admin.form', ['submitButtonText' => 'Update'])
 
                         {!! Form::close() !!}
 
@@ -42,7 +42,6 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection
 
 @section('jsaddons')

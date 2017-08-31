@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends(config('downblog.layout_parent'))
 
 @section('content')
     <div class="row">
-        <div class="col-md-9">
-            {{--@include('admin.msg')--}}
+        <div class="col-md-12">
+            @include('downblog::partials.msg')
 
             <div class="panel panel-default">
                 <div class="panel-heading">Articles</div>
@@ -13,7 +13,7 @@
                         <i class="fa fa-plus" aria-hidden="true"></i> Add New
                     </a>
 
-                    {!! Form::open(['method' => 'GET', 'url' => route('downblog.admin.show'), 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
+                    {!! Form::open(['method' => 'GET', 'url' => route('downblog.admin.index'), 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
                     <div class="input-group">
                         <input type="text" class="form-control" name="search" placeholder="Search...">
                         <span class="input-group-btn">
@@ -37,7 +37,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($articles as $item)
+                            @foreach($posts as $item)
                                 <tr>
                                     <td>{!! $item->isUnpublished() ? '<em>' : '' !!}{{ $item->title }}{!! $item->isUnpublished() ? '</em>' : '' !!}</td>
                                     <td>{!! $item->isUnpublished() ? '<em>' : '' !!}{{ $item->subtitle }}{!! $item->isUnpublished() ? '</em>' : '' !!}</td>
@@ -45,19 +45,17 @@
                                     <td>
                                         <a href="{{ route('downblog.admin.show', ['slug' => $item->slug]) }}"
                                            title="View Article">
-                                            <button class="btn btn-info btn-xs"><i class="fa fa-eye"
-                                                                                   aria-hidden="true"></i> View
+                                            <button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View
                                             </button>
                                         </a>
                                         <a href="{{ route('downblog.admin.edit', ['slug' => $item->slug]) }}"
                                            title="Edit Article">
-                                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"
-                                                                                      aria-hidden="true"></i> Edit
+                                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
                                             </button>
                                         </a>
                                         {!! Form::open([
                                             'method'=>'DELETE',
-                                            'url' => route('downblog.admin.delete', ['slug' => $item->slug]),
+                                            'url' => route('downblog.admin.delete', ['id' => $item->id]),
                                             'style' => 'display:inline'
                                         ]) !!}
                                         {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
@@ -72,7 +70,7 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="pagination-wrapper"> {!! $articles->appends(['search' => Request::get('search')])->render() !!} </div>
+                        <div class="pagination-wrapper"> {!! $posts->appends(['search' => Request::get('search')])->render() !!} </div>
                     </div>
 
                 </div>

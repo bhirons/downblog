@@ -1,6 +1,6 @@
 <?php
 
-namespace bhirons\DownBlog;
+namespace Bhirons\DownBlog;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

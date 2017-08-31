@@ -1,9 +1,9 @@
 <?php
 
-namespace bhirons\DownBlog\Http\Controllers;
+namespace Bhirons\DownBlog\Http\Controllers;
 
 use Illuminate\Http\Request;
-use bhirons\DownBlog\Article;
+use Bhirons\DownBlog\Article;
 use Illuminate\Routing\Controller;
 
 class ArticleController extends Controller
@@ -22,13 +22,13 @@ class ArticleController extends Controller
                 ->orWhere('user_id', 'LIKE', "%$keyword%")
                 ->orderBy('published_on', 'ASC')
                 ->select('title', 'blurb', 'slug', 'published_on')
-                ->with('discussion')
+                //->with('discussion')
                 ->paginate($perPage);
         } else {
             $articles = Article::published()
                 ->orderBy('published_on', 'ASC')
                 ->select('title', 'blurb', 'slug', 'published_on')
-                ->with('discussion')
+                //->with('discussion')
                 ->paginate($perPage);
         }
 
@@ -39,16 +39,16 @@ class ArticleController extends Controller
 
     public function show($slug)
     {
-        $post = Article::where('slug', $slug)
+        $article = Article::where('slug', $slug)
             ->with('author')
             ->first();
 
         //dd($post);
 
-        if(!$post) {
+        if(!$article) {
             abort(404);
         }
 
-        return view('downblog::presentation.show', compact('post'));
+        return view('downblog::presentation.show', compact('article'));
     }
 }

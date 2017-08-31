@@ -6,7 +6,7 @@
  * Time: 12:51 PM
  */
 
-namespace bhirons\DownBlog;
+namespace Bhirons\DownBlog;
 
 use Illuminate\Support\Facades\Facade;
 

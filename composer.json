@@ -19,12 +19,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "bhirons\\DownBlog\\": "src"
+            "Bhirons\\DownBlog\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "bhirons\\DownBlog\\Test\\": "tests/"
+            "Bhirons\\DownBlog\\Test\\": "tests/"
         }
     }
 }

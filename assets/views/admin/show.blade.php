@@ -1,12 +1,10 @@
-@extends('layouts.app')
+@extends(config('downblog.layout_parent'))
 
 @section('content')
-    <div class="container">
         <div class="row">
-            @include('admin.sidebar')
 
-            <div class="col-md-9">
-                @include('admin.msg')
+            <div class="col-md-12">
+                @include('downblog::partials.msg')
 
                 <div class="panel panel-default">
                     <div class="panel-heading">Article {{ $article->id }}</div>
@@ -69,5 +67,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection
