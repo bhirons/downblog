@@ -19,18 +19,20 @@ class ArticlePolicy
     }
 
     /**
-     * Determine if user can do all the things
+     * Determine if user can load the admin interface in general
      *
      * @param object $user
      * @param \Bhirons\DownBlog\Article $article
      * @return bool
      */
-    public function manage($user, Article $article)
+    public function manage($user)
     {
-        return $this->view($user, $article) ||
-            $this->create($user) ||
-            $this->update($user, $article) ||
-            $this->delete($user, $article);
+        return true;
+
+        //return $this->view($user, $article) ||
+        //    $this->create($user) ||
+        //    $this->update($user, $article) ||
+        //    $this->delete($user, $article);
     }
 
     /**
@@ -42,7 +44,7 @@ class ArticlePolicy
      */
     public function view($user, Article $article)
     {
-        return true;
+        return false;
     }
 
     /**
@@ -65,6 +67,10 @@ class ArticlePolicy
      */
     public function update($user, Article $article)
     {
+        //simple edit own's own articles only rule
+        //return (bool)($user->id === $article->user_id);
+
+        //default, everyone
         return true;
     }
 

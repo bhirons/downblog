@@ -12,9 +12,19 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 //use Session;
 
+/**
+ *
+ * Class DownBlogController
+ * @package Bhirons\DownBlog\Http\Controllers\Admin
+ */
 class DownBlogController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /*
+     * TODO settle on either slug or id, so I can consider switching to implicit model routing so the policy application looks more efficient
+     *
+     */
 
     /**
      * Display a listing of the resource.
@@ -24,6 +34,8 @@ class DownBlogController extends BaseController
     public function index(Request $request)
     {
         //dd($request);
+        //this authorize requires an instance
+        $this->authorize('manage', Article::class);
 
         $keyword = $request->get('search');
         $perPage = 15;
@@ -53,6 +65,8 @@ class DownBlogController extends BaseController
      */
     public function create()
     {
+        $this->authorize('create', Article::class);
+
         return view('downblog::admin.create');
     }
 
@@ -65,6 +79,8 @@ class DownBlogController extends BaseController
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Article::class);
+
         $this->validate($request, [
             'title' => 'required|max:255',
             'content' => 'required|string',
@@ -95,6 +111,8 @@ class DownBlogController extends BaseController
     {
         $article = Article::where('slug', '=', $slug)->firstOrFail();
 
+        $this->authorize('view', $article);
+
         return view('downblog::admin.show', compact('article'));
     }
 
@@ -110,6 +128,8 @@ class DownBlogController extends BaseController
         $article = Article::where('slug', '=', $slug)
             ->with('author')
             ->firstOrFail();
+
+        $this->authorize('update', $article);
 
         return view('downblog::admin.edit')
             ->with('article', $article);
@@ -136,6 +156,7 @@ class DownBlogController extends BaseController
         $requestData = $request->all();
 
         $post = Article::where('id', '=', $id)->firstOrFail();
+        $this->authorize('update', $post);
 
         $requestData['slug'] = $this->slugify($requestData['title']);
         $post->update($requestData);
@@ -154,7 +175,11 @@ class DownBlogController extends BaseController
      */
     public function destroy($id)
     {
-        Article::where('id', '=', $id)->delete();
+        $article = Article::where('id', '=', $id)->firstOrFail();
+
+        $this->authorize('delete', $article);
+
+        $article->delete();
 
         //Session::flash('alert-info', 'Article deleted!');
 

@@ -22,7 +22,7 @@ Route::group([
 
         Route::get('/{slug}', 'DownBlogController@show')
             ->name('downblog.admin.show');
-            //->middleware('can:view,\Bhirons\DownBlog\Article');
+            //->middleware('can:view',\Bhirons\DownBlog\Article::class);
 
         Route::post('/', 'DownBlogController@store')
             ->name('downblog.admin.store');
@@ -56,6 +56,7 @@ Route::group([
      */
     'prefix' => config('downblog.presentation_route_prefix'),
     'namespace' => 'Bhirons\DownBlog\Http\Controllers',
+    'middleware' => ['web'],
     //'middleware' => ['can:read,\Bhirons\DownBlog\Article'],  //<-- turn on if you want to restrict articles to logged in users only
     ], function () {
         Route::get('/', 'ArticleController@index')

@@ -12,19 +12,24 @@
 
                         <a href="{{ route('downblog.admin.index') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <div class="pull-right">
-                            <a href="{{ route('downblog.admin.edit', ['slug' => $article->slug]) }}" title="Edit Article"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-                            {!! Form::open([
-                                'method'=>'DELETE',
-                                'url' =>route('downblog.admin.delete', ['slug' => $article->slug]),
-                                'style' => 'display:inline'
-                            ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete Article',
-                                    'onclick'=>'return confirm("Deleting is reversible but currently requires direct DB access. Confirm delete?")'
-                            ))!!}
-                            {!! Form::close() !!}
+                            {{-- the arg must be an instance of the class, not a string descriptor --}}
+                            @can('update', $article)
+                                <a href="{{ route('downblog.admin.edit', ['slug' => $article->slug]) }}" title="Edit Article"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                            @endcan
+                            @can('delete', $article)
+                                {!! Form::open([
+                                    'method'=>'DELETE',
+                                    'url' =>route('downblog.admin.delete', ['slug' => $article->slug]),
+                                    'style' => 'display:inline'
+                                ]) !!}
+                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                                        'type' => 'submit',
+                                        'class' => 'btn btn-danger btn-xs',
+                                        'title' => 'Delete Article',
+                                        'onclick'=>'return confirm("Deleting is reversible but currently requires direct DB access. Confirm delete?")'
+                                ))!!}
+                                {!! Form::close() !!}
+                            @endcan
                         </div>
                         <br/>
                         <br/>

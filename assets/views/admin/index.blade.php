@@ -8,10 +8,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Articles</div>
                 <div class="panel-body">
-                    <a href="{{ route('downblog.admin.create') }}" class="btn btn-success btn-sm"
-                       title="Add New Article">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                    </a>
+                    @can('create', \Bhirons\DownBlog\Article::class)
+                        <a href="{{ route('downblog.admin.create') }}" class="btn btn-success btn-sm"
+                           title="Add New Article">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Add New
+                        </a>
+                    @endcan
 
                     {!! Form::open(['method' => 'GET', 'url' => route('downblog.admin.index'), 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
                     <div class="input-group">
@@ -43,28 +45,34 @@
                                     <td>{!! $item->isUnpublished() ? '<em>' : '' !!}{{ $item->subtitle }}{!! $item->isUnpublished() ? '</em>' : '' !!}</td>
                                     <td>{!! $item->isUnpublished() ? '<em>' : '' !!}{{ $item->blurb }}{!! $item->isUnpublished() ? '</em>' : '' !!}</td>
                                     <td>
-                                        <a href="{{ route('downblog.admin.show', ['slug' => $item->slug]) }}"
-                                           title="View Article">
-                                            <button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View
-                                            </button>
-                                        </a>
-                                        <a href="{{ route('downblog.admin.edit', ['slug' => $item->slug]) }}"
-                                           title="Edit Article">
-                                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
-                                            </button>
-                                        </a>
-                                        {!! Form::open([
-                                            'method'=>'DELETE',
-                                            'url' => route('downblog.admin.delete', ['id' => $item->id]),
-                                            'style' => 'display:inline'
-                                        ]) !!}
-                                        {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                                'type' => 'submit',
-                                                'class' => 'btn btn-danger btn-xs',
-                                                'title' => 'Delete Article',
-                                                'onclick'=>'return confirm("Deleting is reversible but currently requires direct DB access. Confirm delete?")'
-                                        )) !!}
-                                        {!! Form::close() !!}
+                                        @can('view', $item)
+                                            <a href="{{ route('downblog.admin.show', ['slug' => $item->slug]) }}"
+                                               title="View Article">
+                                                <button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View
+                                                </button>
+                                            </a>
+                                        @endcan
+                                        @can('update', $item)
+                                            <a href="{{ route('downblog.admin.edit', ['slug' => $item->slug]) }}"
+                                               title="Edit Article">
+                                                <button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+                                                </button>
+                                            </a>
+                                        @endcan
+                                        @can('delete', $item)
+                                            {!! Form::open([
+                                                'method'=>'DELETE',
+                                                'url' => route('downblog.admin.delete', ['id' => $item->id]),
+                                                'style' => 'display:inline'
+                                            ]) !!}
+                                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                                                    'type' => 'submit',
+                                                    'class' => 'btn btn-danger btn-xs',
+                                                    'title' => 'Delete Article',
+                                                    'onclick'=>'return confirm("Deleting is reversible but currently requires direct DB access. Confirm delete?")'
+                                            )) !!}
+                                            {!! Form::close() !!}
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
