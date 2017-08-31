@@ -1,5 +1,9 @@
 @extends(config('downblog.layout_parent'))
 
+@section('cssaddons')
+    <link href="{{asset('vendor/downblog/css/simplemde.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
         <div class="row">
             <div class="col-md-12">
@@ -33,7 +37,7 @@
 @endsection
 
 @section('jsaddons')
-    <script src="{{ asset('js/simplemde.min.js') }}"></script>
+    <script src="{{ asset('vendor/downblog/js/simplemde.min.js') }}"></script>
     <script>
         var simplemde = new SimpleMDE({
             element: $("#content")[0],

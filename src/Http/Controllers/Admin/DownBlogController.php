@@ -22,8 +22,9 @@ class DownBlogController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /*
-     * TODO settle on either slug or id, so I can consider switching to implicit model routing so the policy application looks more efficient
+     * TODO settle on either slug or id, so I can consider switching to implicit model route binding so the policy application looks more efficient
      *
+     * TODO turn on a messaging or notification service, whether flashed alerts or something else
      */
 
     /**
@@ -33,7 +34,6 @@ class DownBlogController extends BaseController
      */
     public function index(Request $request)
     {
-        //dd($request);
         //this authorize requires an instance
         $this->authorize('manage', Article::class);
 

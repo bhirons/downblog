@@ -1,10 +1,17 @@
 <?php
 
 /*
- * the middleware is fine here, and it forces a login, who on earth would allow a guest to manage data, know what I mean?
+ * the middleware would be fine here, and it forces a login, who on earth would allow a guest to manage data, know what I mean?
  *
  * I kind of wanted to have the package make it an easy option to restrict reading based on login,
  *  but that isnt quite what I thought, see below
+ *
+ * Also, I think the middleware piece should work here, but it does not
+ *  I added policy based authorization to teh controllers, and also in the views
+ *  so that works enough, I'll probably come back here to see what I was doing wrong later
+ *  it feels like if I switch to implicit model rout binding, that would work
+ *  also, I can author amy own middleware and handle it there as well
+ *  ... plenty of options
  *
  */
 Route::group([
@@ -43,7 +50,7 @@ Route::group([
 
 Route::group([
     /*
-     * I thought it was useful if the package could allow publi, or guest, access or not, and ontrollable by the consuming app,
+     * I thought it was useful if the package could allow public, or guest, access or not, and ontrollable by the consuming app,
      *  but if the user is guest, or null, then this policy method never gets here.
      *
      * if the user is not logged in, i.e. user is null here in the Policy call for "can read", i.e. a guest, then this always fails

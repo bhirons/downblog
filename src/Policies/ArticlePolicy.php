@@ -44,7 +44,7 @@ class ArticlePolicy
      */
     public function view($user, Article $article)
     {
-        return false;
+        return true;
     }
 
     /**
