@@ -1,19 +1,22 @@
 # DownBlog
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
 [Software License](LICENSE)
 
 Simple blog article management package to manage blog posts authored in markdown and built to match the default Laravel way of doing things.
 
-This is a simple package, it's sole purpose is to provide a basic article writing mechanism and uses markdown because storing HTML in a DB annoys me.
+I remember reading laravbel discussion posts, like I sometimes do, and a new-to-Laravel dev was asking for a simple blog package, and since all the examples ever used are usually Post this and Blog that, the newbie was advised to just go write his own, it wasn't that hard. So. Well, so I did. And here it is for the whole world to see, use if you like.
+
+This is a simple package, it's sole purpose is to provide a basic article writing mechanism with a rich text feel and uses markdown because storing HTML in a DB annoys me. The package relies on standard Laravel things, like the auth, and the policies for access control, and bog standard blade templates. I like packages that rely on a default way of doing things.
+
+I'll probably add this to packagist eventually, you can also check this out and include it locally if you want to try it out by adding your local copy to the repositories section of your including project, as [shown here](https://medium.com/@lasselehtinen/getting-started-on-laravel-package-development-a62110c58ba1)
 
 ## Dependencies
 
-This package was developed against and used with Laravel 5.4 applications. Your mileage my vary with other versions.
+This package was developed against and used with Laravel 5.4 applications, guess I'll move to 5.5 soon. Your mileage my vary with other versions.
 
 DownBlog uses the SimpleMDE editor, and the basic views included are setup to work under Bootstrap and use Font-Awesome.
 
-Markdown is rendered using the 
+Markdown is rendered using the [Laravel-Markdown](https://github.com/GrahamCampbell/Laravel-Markdown) package.
  
 ### SimpleMDE
 
@@ -76,6 +79,8 @@ Here are other available tags:
  * views  : a set of admin views as well as a basic public index page and a show page
  * public : included js and css assets including the simplemde
  
+ If you publish the views and the public assets, you can allow the forms to load their own css and js by adding a yeild
+tag to your layout templates named 'cssaddons' and 'jsaddons'.
 
 ## Usage
 
