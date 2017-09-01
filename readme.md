@@ -4,7 +4,7 @@
 
 Simple blog article management package to manage blog posts authored in markdown and built to match the default Laravel way of doing things.
 
-I remember reading laravbel discussion posts, like I sometimes do, and a new-to-Laravel dev was asking for a simple blog package, and since all the examples ever used are usually Post this and Blog that, the newbie was advised to just go write his own, it wasn't that hard. So. Well, so I did. And here it is for the whole world to see, use if you like.
+I remember reading Laravel discussion posts, like I sometimes do, and a new-to-Laravel dev was asking for a simple blog package, and since all the examples ever used are usually Post this and Blog that, the newbie was advised to just go write his own, it wasn't that hard. So. Well, so I did. And here it is for the whole world to see, use if you like.
 
 This is a simple package, it's sole purpose is to provide a basic article writing mechanism with a rich text feel and uses markdown because storing HTML in a DB annoys me. The package relies on standard Laravel things, like the auth, and the policies for access control, and bog standard blade templates. I like packages that rely on a default way of doing things.
 
