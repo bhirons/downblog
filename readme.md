@@ -150,11 +150,12 @@ If you discover any security related issues, please email buddhironsjr@gmail.com
 ## Credits and Attributions
 
 - [Budd Hirons Jr](https://github.com/bhirons)
-- see [SimpleMDE](https://github.com/sparksuite/simplemde-markdown-editor) for source and license
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+see [SimpleMDE](https://github.com/sparksuite/simplemde-markdown-editor) for source and license
 
 [link-packagist]: https://packagist.org/packages/bhirons/DownBlog
 [link-travis]: https://travis-ci.org/bhirons/DownBlog
